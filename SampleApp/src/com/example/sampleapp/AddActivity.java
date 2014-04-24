@@ -2,6 +2,8 @@ package com.example.sampleapp;
 
 import java.util.Calendar;
 
+import com.example.sampleapp.components.ExtendedListItem;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -34,6 +36,7 @@ public class AddActivity extends ActionBarActivity {
 	TextView numerTelefonuTV;
 	EditText numerTelefonuET;
 	Button zapisz;
+	ExtendedListItem test;
 
 	Activity thisActivity = this;
 
@@ -88,6 +91,9 @@ public class AddActivity extends ActionBarActivity {
 		zapisz = new Button(this);
 		zapisz.setText("Zapisz");
 		addLayout.addView(zapisz);
+		
+		test = new ExtendedListItem(this);
+		addLayout.addView(test);
 	}
 
 	private void initDataUrodzenia() {

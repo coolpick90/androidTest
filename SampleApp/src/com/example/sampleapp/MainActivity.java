@@ -1,5 +1,8 @@
 package com.example.sampleapp;
 
+import com.example.sampleapp.adapters.ExtendedListAdapter;
+import com.example.sampleapp.model.Contact;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,7 +30,21 @@ public class MainActivity extends ActionBarActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		lv = (ListView) findViewById(R.id.listView1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, days);
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, days);
+		Contact kowal = new Contact();
+		kowal.setImie("Jan");
+		kowal.setNazwisko("Kowal");
+		kowal.setWiek(65L);
+		Contact nowak = new Contact();
+		nowak.setImie("W³adys³aw");
+		nowak.setNazwisko("Nowak");
+		nowak.setWiek(32L);
+		Contact kulpa = new Contact();
+		kulpa.setImie("Sebastian");
+		kulpa.setNazwisko("Kulpa");
+		kulpa.setWiek(23L);
+		Contact[] contacts = {kowal, nowak, kulpa};
+		ArrayAdapter<Contact> adapter = new ExtendedListAdapter(this, android.R.layout.simple_list_item_1, contacts);
 		lv.setAdapter(adapter);
 	}
 
