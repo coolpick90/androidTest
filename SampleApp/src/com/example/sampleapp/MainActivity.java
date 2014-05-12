@@ -1,42 +1,26 @@
 package com.example.sampleapp;
 
-import com.example.sampleapp.adapters.ExtendedListAdapter;
-import com.example.sampleapp.model.Contact;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import com.example.sampleapp.configuration.GeneratedListView;
+import com.example.sampleapp.model.Contact;
 
 public class MainActivity extends ActionBarActivity {
 	
-	ListView lv;
-    String[] days = {"Poniedzialek", "Wtorek", "Sroda", "Czwartek", "Piatek", "Sobota", "Niedziela"};
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-		lv = (ListView) findViewById(R.id.listView1);
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, days);
+		
 		Contact kowal = new Contact();
 		kowal.setImie("Jan");
 		kowal.setNazwisko("Kowal");
 		kowal.setWiek(65L);
 		Contact nowak = new Contact();
-		nowak.setImie("W³adys³aw");
+		nowak.setImie("W³adys³");
 		nowak.setNazwisko("Nowak");
 		nowak.setWiek(32L);
 		Contact kulpa = new Contact();
@@ -44,8 +28,10 @@ public class MainActivity extends ActionBarActivity {
 		kulpa.setNazwisko("Kulpa");
 		kulpa.setWiek(23L);
 		Contact[] contacts = {kowal, nowak, kulpa};
-		ArrayAdapter<Contact> adapter = new ExtendedListAdapter(this, android.R.layout.simple_list_item_1, contacts);
-		lv.setAdapter(adapter);
+
+		GeneratedListView<Object> gv = new GeneratedListView<Object>(this);
+		gv.generate(contacts);
+		setContentView(gv.getListView());
 	}
 
 	@Override
@@ -69,22 +55,4 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-
 }

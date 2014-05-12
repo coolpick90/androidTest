@@ -1,4 +1,4 @@
-package com.example.sampleapp.adapters;
+package com.example.sampleapp.configuration;
 
 import android.content.Context;
 import android.view.View;

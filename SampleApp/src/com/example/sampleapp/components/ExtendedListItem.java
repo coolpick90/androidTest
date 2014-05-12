@@ -2,40 +2,49 @@ package com.example.sampleapp.components;
 
 import android.content.Context;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ExtendedListItem extends LinearLayout {
+public class ExtendedListItem extends RelativeLayout {
 
-	private LinearLayout leftLayout;
-	private LinearLayout rightLayout;
 	private TextView bigText;
 	private TextView smallText;
 	private TextView rightText;
 
 	public ExtendedListItem(Context context) {
 		super(context);
-		leftLayout = new LinearLayout(context);
-		leftLayout.setOrientation(LinearLayout.VERTICAL);
-		leftLayout.setLayoutParams(new LinearLayout.LayoutParams(700, LayoutParams.WRAP_CONTENT));
-		leftLayout.setPadding(30, 30, 0, 30);
-		rightLayout = new LinearLayout(context);
-		rightLayout.setOrientation(LinearLayout.VERTICAL);
-		rightLayout.setLayoutParams(new LinearLayout.LayoutParams(300, LayoutParams.MATCH_PARENT));
+		setPadding(30, 30, 30, 30);
 		bigText = new TextView(context);
 		smallText = new TextView(context);
+		rightText = new TextView(context);
 		bigText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 100);
 		smallText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 50);
-		leftLayout.addView(bigText);
-		leftLayout.addView(smallText);
-		addView(leftLayout);
-		addView(rightLayout);
-		rightText = new TextView(context);
 		rightText.setTextSize(TypedValue.COMPLEX_UNIT_PX, 40);
-		rightLayout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-		rightLayout.addView(rightText);
 
+		RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams q = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams r = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+		bigText.setId(View.generateViewId());
+		smallText.setId(View.generateViewId());
+		rightText.setId(View.generateViewId());
+		
+		q.addRule(RelativeLayout.BELOW, this.getId());
+		bigText.setLayoutParams(q);
+        addView(bigText);
+        
+        p.addRule(RelativeLayout.BELOW, bigText.getId());
+		smallText.setLayoutParams(p);
+        addView(smallText);
+        
+        r.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, bigText.getId());
+		rightText.setLayoutParams(r);
+        addView(rightText);
 	}
 	
 	public void setBigText(String text) {
